@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MCjs Charts Test</title>
+  <title>MCjs Charts Test (Dev)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body { font-family: system-ui, sans-serif; padding: 40px; background: #f7f7f7; }
     .chart-container { width: 600px; max-width: 100%; background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 40px; }
+    canvas { width: 100%; height: 400px; }
   </style>
 </head>
 <body>
 
-  <h1>MCjs Chart Library – Test</h1>
+  <h1>MCjs Chart Library – Dev Test</h1>
 
   <div class="chart-container">
     <canvas id="barChart"></canvas>
@@ -22,6 +23,29 @@
     <canvas id="lineChart"></canvas>
   </div>
 
-  <script type="module" src="./script.js"></script>
+  <!-- Import directly from src/ for local dev -->
+  <script type="module">
+    import { BarChart, LineChart } from './src/index.js';
+
+    const barData = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+      series: [
+        { name: "2025", values: [65, 59, 80, 81, 56] },
+        { name: "2026", values: [28, 48, 40, 19, 86] }
+      ]
+    };
+
+    const lineData = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+      series: [
+        { name: "2025", values: [45, 79, 60, 91, 36] },
+        { name: "2026", values: [38, 58, 70, 29, 66] }
+      ]
+    };
+
+    BarChart(document.getElementById("barChart"), barData);
+    LineChart(document.getElementById("lineChart"), lineData);
+  </script>
+
 </body>
 </html>
