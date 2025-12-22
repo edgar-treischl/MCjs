@@ -1,0 +1,13 @@
+{
+  "labels": ["Jan", "Feb", "Mar", "Apr", "May"],
+  "series": [
+    {
+      "name": "Sales",
+      "values": [12, 19, 3, 5, 8]
+    },
+    {
+      "name": "Expenses",
+      "values": [8, 11, 7, 6, 4]
+    }
+  ]
+}

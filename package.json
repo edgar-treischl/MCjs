@@ -1,0 +1,11 @@
+{
+  "name": "MCjs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/edgar-treischl/MCjs.git",
+  "author": "edgar.treischl <edgar.treischl@isb.bayern.de>",
+  "license": "MIT",
+  "dependencies": {
+    "chart.js": "^4.5.1"
+  }
+}
