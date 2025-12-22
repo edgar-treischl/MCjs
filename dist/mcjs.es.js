@@ -1,7 +1,4 @@
-function s(t, e, r) {
-  return new r(t, e);
-}
-const i = {
+const s = {
   colors: [
     "#36A2EB",
     "#FF6384",
@@ -10,38 +7,46 @@ const i = {
   ],
   borderWidth: 1
 };
-function l(t, e) {
-  return t.map((r, o) => ({
-    label: r.name,
-    data: r.values,
-    backgroundColor: e.colors[o % e.colors.length],
-    borderColor: e.colors[o % e.colors.length],
-    borderWidth: e.borderWidth
+function n(r, t) {
+  return r.map((e, o) => ({
+    label: e.name,
+    data: e.values,
+    backgroundColor: t.colors[o % t.colors.length],
+    borderColor: t.colors[o % t.colors.length],
+    borderWidth: t.borderWidth
   }));
 }
-function n(t, e) {
-  t.chart && t.chart.destroy();
-  const r = l(e.series, i);
-  return t.chart = s(t, {
+function a(r, t, e) {
+  const o = e || window.Chart;
+  if (!o) throw new Error("Chart.js not found. Make sure Chart.js is loaded.");
+  return new o(r, t);
+}
+function l(r, t, e) {
+  r.chart && r.chart.destroy();
+  const o = n(t.series, s);
+  return r.chart = a(r, {
     type: "bar",
     data: {
-      labels: e.labels,
-      datasets: r
+      labels: t.labels,
+      datasets: o
     },
     options: {
       responsive: !0,
       scales: { y: { beginAtZero: !0 } }
     }
-  }), t.chart;
+  }, e), r.chart;
 }
-function a(t, e) {
-  t.chart && t.chart.destroy();
-  const r = l(e.series, i);
-  return t.chart = s(t, {
+function i(r, t, e) {
+  return new e(r, t);
+}
+function c(r, t) {
+  r.chart && r.chart.destroy();
+  const e = n(t.series, s);
+  return r.chart = i(r, {
     type: "line",
     data: {
-      labels: e.labels,
-      datasets: r
+      labels: t.labels,
+      datasets: e
     },
     options: {
       responsive: !0,
@@ -65,10 +70,10 @@ function a(t, e) {
         }
       }
     }
-  }), t.chart;
+  }), r.chart;
 }
 export {
-  n as BarChart,
-  a as LineChart,
-  i as theme
+  l as BarChart,
+  c as LineChart,
+  s as theme
 };

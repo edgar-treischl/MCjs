@@ -1,12 +1,18 @@
-import { createChart } from "../core/createChart.js";
 import { theme } from "../core/theme.js";
 import { mapSeriesToDatasets } from "../core/utils.js";
 
-export function BarChart(canvas, data) {
+// Updated createChart function to accept ChartConstructor
+function createChartWithGlobal(canvas, config, ChartConstructor) {
+  const ChartClass = ChartConstructor || window.Chart; // fallback to global Chart
+  if (!ChartClass) throw new Error("Chart.js not found. Make sure Chart.js is loaded.");
+  return new ChartClass(canvas, config);
+}
+
+export function BarChart(canvas, data, ChartInstance) {
   if (canvas.chart) canvas.chart.destroy();
   const datasets = mapSeriesToDatasets(data.series, theme);
 
-  canvas.chart = createChart(canvas, {
+  canvas.chart = createChartWithGlobal(canvas, {
     type: "bar",
     data: {
       labels: data.labels,
@@ -16,7 +22,7 @@ export function BarChart(canvas, data) {
       responsive: true,
       scales: { y: { beginAtZero: true } }
     }
-  });
+  }, ChartInstance);
 
   return canvas.chart;
 }
