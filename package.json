@@ -6,7 +6,7 @@
   "repository": "https://github.com/edgar-treischl/MCjs.git",
   "author": "edgar.treischl <edgar.treischl@isb.bayern.de>",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "chart.js": "^4.5.1"
   },
   "devDependencies": {
@@ -14,9 +14,10 @@
     "vitepress": "^2.0.0-alpha.15"
   },
   "scripts": {
-    "prepare": "vite build",
+    "build": "vite build",
     "docs:dev": "vitepress dev src/docs",
     "docs:build": "vitepress build src/docs",
-    "docs:serve": "vitepress serve src/docs"
+    "docs:serve": "vitepress serve src/docs",
+    "prepare": "vite build"
   }
 }

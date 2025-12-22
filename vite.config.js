@@ -5,12 +5,13 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.js"),
-      name: "MCjs",
-      fileName: () => "index.es.js",
-      formats: ["es"]
+      name: "MCjs", // global variable for UMD
+      fileName: (format) => `mcjs.${format}.js`,
+      formats: ["es", "umd"] // build both ES and UMD
     },
     rollupOptions: {
-      external: ["chart.js"], // good, avoids bundling Chart.js
+      // Don't bundle Chart.js — it's a peer dependency
+      external: ["chart.js"],
       output: {
         globals: {
           "chart.js": "Chart"
