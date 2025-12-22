@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'MCjs',
   description: 'Modular Chart Library',
+  base: '/MCjs/',  // <--- Add this line for GitHub Pages project site
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
