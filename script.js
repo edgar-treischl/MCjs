@@ -1,14 +1,15 @@
 import { BarChart } from "./components/BarChart.js";
+import { LineChart } from "./components/LineChart.js";
 
 async function main() {
-  // Fetch data from JSON
   const response = await fetch("./data/data.json");
   const data = await response.json();
 
-  // Get canvas and render chart
-  const canvas = document.getElementById("myChart");
-  BarChart(canvas, data);
+  const barCanvas = document.getElementById("barChart");
+  const lineCanvas = document.getElementById("lineChart");
+
+  BarChart(barCanvas, data);
+  LineChart(lineCanvas, data);
 }
 
-// Start the app
 main();
