@@ -3,34 +3,29 @@ name: Deploy VitePress Docs
 on:
   push:
     branches:
-      - main  # Change to your default branch if different
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20  # Use your preferred Node version
+          node-version: 20
 
-      # 3. Install dependencies
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      # 4. Build VitePress site
       - name: Build VitePress
         run: yarn vitepress build docs
 
-      # 5. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v6
+        uses: peaceiris/actions-gh-pages@v5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/.vitepress/dist
