@@ -1,19 +1,21 @@
 name: Deploy VitePress Docs to GitHub Pages
 
+# Trigger on pushes to main branch
 on:
   push:
     branches:
-      - main  # Trigger deploy on changes to the main branch
+      - main
 
+# Required for pushing to gh-pages
 permissions:
-  contents: write  # Allows pushing to gh-pages branch
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the repository
+      # 1️⃣ Checkout repository
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -23,7 +25,7 @@ jobs:
         with:
           node-version: 20
 
-      # 3️⃣ Install dependencies using Yarn
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -31,13 +33,10 @@ jobs:
       - name: Build VitePress
         run: yarn vitepress build docs
 
-      # 5️⃣ Disable Jekyll on GitHub Pages (optional but recommended)
-      - name: Disable Jekyll
-        run: touch docs/.vitepress/dist/.nojekyll
-
-      # 6️⃣ Deploy to GitHub Pages
+      # 5️⃣ Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/.vitepress/dist
+          verbose: true  # Optional, shows logs for debugging
