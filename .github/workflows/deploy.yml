@@ -1,14 +1,12 @@
 name: Deploy VitePress Docs to GitHub Pages
 
-# Trigger on pushes to main branch
 on:
   push:
     branches:
-      - main
+      - main  # Trigger deploy on changes to main branch
 
-# Required for pushing to gh-pages
 permissions:
-  contents: write
+  contents: write  # Required for pushing to gh-pages
 
 jobs:
   deploy:
@@ -33,10 +31,11 @@ jobs:
       - name: Build VitePress
         run: yarn vitepress build docs
 
-      # 5️⃣ Deploy to GitHub Pages
+      # 5️⃣ Deploy to GitHub Pages (force fresh deploy)
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/.vitepress/dist
-          verbose: true  # Optional, shows logs for debugging
+          force_orphan: true    # Ensures branch is recreated fresh
+          keep_files: false     # Remove old files not in this build
