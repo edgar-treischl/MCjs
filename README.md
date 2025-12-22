@@ -98,13 +98,29 @@ Suitable for prototypes or single-project use, not for multiple production apps.
 
 Next step: Using MCjs via GitHub Packages (private npm registry)
 
+We added Vite bundle your chart library into a single JS file for easy import.
 
+```bash
+yarn add -D vite  
+yarn vite build
+
+```
 
 ## Vite Press
+
+
+We added VitePress for live documentation and examples.
+
+```bash
+yarn add -D vitepress@next
+```
+
+
 
 ```bash
 yarn docs:dev
 yarn docs:build
+yarn vitepress build docs
 
 yarn vite build
 
