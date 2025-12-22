@@ -7,7 +7,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, "src/index.js"),
       name: "MCjs",
       // Always output a predictable filename
-      fileName: () => "index",
+      fileName: () => "index.es.js",
       formats: ["es"]
     },
     rollupOptions: {
