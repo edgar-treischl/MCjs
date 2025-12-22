@@ -12,5 +12,5 @@ MCjs is a small JS library for reusable charts built on [Chart.js](https://www.c
 ## Getting Started
 
 ```bash
-yarn add @edgar-treischl/MCjs
+yarn add https://github.com/edgar-treischl/MCjs.git
 ```
