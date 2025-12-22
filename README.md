@@ -67,3 +67,47 @@ function App() {
 }
 ```
 
+
+---
+
+## GitHub
+
+For quick testing or small projects, you can install MCjs directly from a GitHub repository without publishing it to a registry.
+
+### Install from GitHub
+
+```bash
+yarn add github:username/MCjs
+```
+Replace username with your GitHub username or organization.
+Installs the library from the default branch.
+Works in plain JS, React, or Vue projects.
+
+## Import and use charts
+
+```js
+import { BarChart, LineChart } from "MCjs";
+
+const canvas = document.getElementById("myChart");
+BarChart(canvas, data);
+```
+
+⚠️ Notes
+Versioning is limited — updates are tied to Git commit hashes or tags.
+Suitable for prototypes or single-project use, not for multiple production apps.
+
+Next step: Using MCjs via GitHub Packages (private npm registry)
+
+
+
+## Vite Press
+
+```bash
+yarn docs:dev
+yarn docs:build
+
+yarn vite build
+
+```
+
+
