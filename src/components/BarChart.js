@@ -4,7 +4,6 @@ import { mapSeriesToDatasets } from "../core/utils.js";
 
 export function BarChart(canvas, data) {
   if (canvas.chart) canvas.chart.destroy();
-
   const datasets = mapSeriesToDatasets(data.series, theme);
 
   canvas.chart = createChart(canvas, {
@@ -15,9 +14,7 @@ export function BarChart(canvas, data) {
     },
     options: {
       responsive: true,
-      scales: {
-        y: { beginAtZero: true }
-      }
+      scales: { y: { beginAtZero: true } }
     }
   });
 

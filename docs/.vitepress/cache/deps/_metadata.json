@@ -2,12 +2,12 @@
   "hash": "5588f7cb",
   "configHash": "54d96c1b",
   "lockfileHash": "9a619afd",
-  "browserHash": "bb974030",
+  "browserHash": "9faf6ccd",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "69982b51",
+      "fileHash": "e3e17596",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
@@ -19,7 +19,13 @@
     "vitepress > @vueuse/core": {
       "src": "../../../../node_modules/@vueuse/core/dist/index.js",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "038f8a49",
+      "fileHash": "32d30567",
+      "needsInterop": false
+    },
+    "chart.js": {
+      "src": "../../../../node_modules/chart.js/dist/chart.js",
+      "file": "chart__js.js",
+      "fileHash": "b9ebc3f3",
       "needsInterop": false
     }
   },
