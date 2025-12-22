@@ -6,13 +6,11 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/index.js"),
       name: "MCjs",
-      // Always output a predictable filename
       fileName: () => "index.es.js",
       formats: ["es"]
     },
     rollupOptions: {
-      // externalize Chart.js (loaded via CDN or peer dep)
-      external: ["chart.js"],
+      external: ["chart.js"], // good, avoids bundling Chart.js
       output: {
         globals: {
           "chart.js": "Chart"

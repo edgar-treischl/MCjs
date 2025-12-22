@@ -1,7 +1,8 @@
 {
   "name": "@edgar-treischl/MCjs",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.es.js",
+  "module": "dist/index.es.js",
   "repository": "https://github.com/edgar-treischl/MCjs.git",
   "author": "edgar.treischl <edgar.treischl@isb.bayern.de>",
   "license": "MIT",
@@ -13,6 +14,7 @@
     "vitepress": "^2.0.0-alpha.15"
   },
   "scripts": {
+    "prepare": "vite build",
     "docs:dev": "vitepress dev src/docs",
     "docs:build": "vitepress build src/docs",
     "docs:serve": "vitepress serve src/docs"
