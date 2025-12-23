@@ -27,7 +27,7 @@ onMounted(() => {
 
 <template>
   <div class="chart-container">
-    <h2>Bar Chart</h2>
+    <h2>Example Plot</h2>
     <canvas ref="canvasRef" width="600" height="400"></canvas>
   </div>
 </template>
