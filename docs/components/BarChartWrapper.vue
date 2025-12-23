@@ -18,7 +18,10 @@ onMounted(() => {
   }
 
   // Render chart
-  BarChart(canvasRef.value, barData)
+  BarChart(canvasRef.value, barData, {
+    plugins: { legend: { position: 'bottom' } }
+  })
+
 })
 </script>
 

@@ -4,6 +4,13 @@ import BarChartWrapper from '/components/BarChartWrapper.vue'
 
 # MCjs Charts Example
 
+```js
+BarChart(customBarCanvas.value, barData, {
+    plugins: { legend: { position: 'bottom' } }
+  })
+```
+
+
 <ClientOnly>
   <BarChartWrapper />
 </ClientOnly>
