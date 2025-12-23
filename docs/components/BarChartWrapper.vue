@@ -12,18 +12,28 @@ onMounted(() => {
   const barData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
     series: [
-      { name: '2025', values: [65, 59, 80, 81, 56] },
-      { name: '2026', values: [28, 48, 40, 19, 86] }
+      { name: 'Male', values: [65, 59, 80, 81, 56] },
+      { name: 'Female', values: [28, 48, 40, 19, 86] }
     ]
   }
 
-  // Render chart
-  BarChart(canvasRef.value, barData, {
-    plugins: { legend: { position: 'bottom' } }
-  })
+  // Axis labels
+  const xLabel = 'Month'
+  const yLabel = 'Number of People'
 
+  // Render chart with minimal theme + axis labels
+  BarChart(
+    canvasRef.value,
+    barData,
+    {
+      plugins: { legend: { position: 'right' } } // overrides
+    },
+    xLabel,
+    yLabel
+  )
 })
 </script>
+
 
 <template>
   <div class="chart-container">

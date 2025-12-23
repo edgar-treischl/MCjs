@@ -40,6 +40,18 @@ onMounted(() => {
   BarChart(customBarCanvas.value, barData, {
     plugins: { legend: { position: 'bottom' } }
   })
+
+  // 3: Custom Labels
+  BarChart(
+    canvasRef.value,
+    barData,
+    {
+      plugins: { legend: { position: 'right' } }
+    },
+    xLabel,
+    yLabel
+  )
+
 })
 </script>
 ```
