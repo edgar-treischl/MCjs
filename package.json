@@ -1,8 +1,8 @@
 {
   "name": "@edgar-treischl/MCjs",
   "version": "1.0.0",
-  "main": "dist/index.es.js",
-  "module": "dist/index.es.js",
+  "main": "dist/mcjs.umd.js",
+  "module": "dist/mcjs.es.js",
   "repository": "https://github.com/edgar-treischl/MCjs.git",
   "author": "edgar.treischl <edgar.treischl@isb.bayern.de>",
   "license": "MIT",
