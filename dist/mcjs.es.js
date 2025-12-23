@@ -1,5 +1,5 @@
-import { Chart as o, BarController as p, BarElement as b, CategoryScale as s, LinearScale as n, Tooltip as i, Legend as a, LineController as h, LineElement as u, PointElement as g } from "chart.js";
-const c = {
+import { Chart as l, BarController as g, BarElement as b, CategoryScale as i, LinearScale as a, Tooltip as p, Legend as c, LineController as h, LineElement as f, PointElement as C } from "chart.js";
+const u = {
   colors: [
     "#36A2EB",
     "#FF6384",
@@ -8,55 +8,56 @@ const c = {
   ],
   borderWidth: 1
 };
-function d(e, r) {
-  return e.map((t, l) => ({
-    label: t.name,
-    data: t.values,
-    backgroundColor: r.colors[l % r.colors.length],
-    borderColor: r.colors[l % r.colors.length],
-    borderWidth: r.borderWidth
+function d(e, t) {
+  return e.map((r, o) => ({
+    label: r.name,
+    data: r.values,
+    backgroundColor: t.colors[o % t.colors.length],
+    borderColor: t.colors[o % t.colors.length],
+    borderWidth: t.borderWidth
   }));
 }
-o.register(
-  p,
+l.register(
+  g,
   b,
-  s,
-  n,
   i,
-  a
+  a,
+  p,
+  c
 );
-function f(e, r) {
+function y(e, t, r = {}) {
   e.chart && e.chart.destroy();
-  const t = d(r.series, c);
-  return e.chart = new o(e, {
-    type: "bar",
-    data: {
-      labels: r.labels,
-      datasets: t
-    },
-    options: {
-      responsive: !0,
-      scales: { y: { beginAtZero: !0 } }
+  const o = d(t.series, u), n = {
+    responsive: !0,
+    scales: { y: { beginAtZero: !0 } },
+    plugins: {
+      legend: { position: "top" },
+      tooltip: {}
     }
+  }, s = { ...n, ...r };
+  return r.plugins && (s.plugins = { ...n.plugins, ...r.plugins }), e.chart = new l(e, {
+    type: "bar",
+    data: { labels: t.labels, datasets: o },
+    options: s
   }), e.chart;
 }
-o.register(
+l.register(
   h,
-  u,
-  g,
-  s,
-  n,
+  f,
+  C,
   i,
-  a
+  a,
+  p,
+  c
 );
-function m(e, r) {
+function B(e, t) {
   e.chart && e.chart.destroy();
-  const t = d(r.series, c);
-  return e.chart = new o(e, {
+  const r = d(t.series, u);
+  return e.chart = new l(e, {
     type: "line",
     data: {
-      labels: r.labels,
-      datasets: t
+      labels: t.labels,
+      datasets: r
     },
     options: {
       responsive: !0,
@@ -83,7 +84,7 @@ function m(e, r) {
   }), e.chart;
 }
 export {
-  f as BarChart,
-  m as LineChart,
-  c as theme
+  y as BarChart,
+  B as LineChart,
+  u as theme
 };
