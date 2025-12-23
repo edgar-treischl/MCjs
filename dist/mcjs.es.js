@@ -1,4 +1,5 @@
-const s = {
+import { Chart as o, BarController as p, BarElement as b, CategoryScale as s, LinearScale as n, Tooltip as i, Legend as a, LineController as h, LineElement as u, PointElement as g } from "chart.js";
+const c = {
   colors: [
     "#36A2EB",
     "#FF6384",
@@ -7,48 +8,55 @@ const s = {
   ],
   borderWidth: 1
 };
-function n(r, t) {
-  return r.map((o, e) => ({
-    label: o.name,
-    data: o.values,
-    backgroundColor: t.colors[e % t.colors.length],
-    borderColor: t.colors[e % t.colors.length],
-    borderWidth: t.borderWidth
+function d(e, r) {
+  return e.map((t, l) => ({
+    label: t.name,
+    data: t.values,
+    backgroundColor: r.colors[l % r.colors.length],
+    borderColor: r.colors[l % r.colors.length],
+    borderWidth: r.borderWidth
   }));
 }
-function a(r, t, o) {
-  const e = o || window.Chart;
-  if (!e) throw new Error("Chart.js not found. Make sure Chart.js is loaded.");
-  return new e(r, t);
-}
-function l(r, t, o) {
-  r.chart && r.chart.destroy();
-  const e = n(t.series, s);
-  return r.chart = a(r, {
+o.register(
+  p,
+  b,
+  s,
+  n,
+  i,
+  a
+);
+function f(e, r) {
+  e.chart && e.chart.destroy();
+  const t = d(r.series, c);
+  return e.chart = new o(e, {
     type: "bar",
     data: {
-      labels: t.labels,
-      datasets: e
+      labels: r.labels,
+      datasets: t
     },
     options: {
       responsive: !0,
       scales: { y: { beginAtZero: !0 } }
     }
-  }, o), r.chart;
+  }), e.chart;
 }
-function i(r, t, o) {
-  const e = o || window.Chart;
-  if (!e) throw new Error("Chart.js not found. Make sure Chart.js is loaded.");
-  return new e(r, t);
-}
-function h(r, t, o) {
-  r.chart && r.chart.destroy();
-  const e = n(t.series, s);
-  return r.chart = i(r, {
+o.register(
+  h,
+  u,
+  g,
+  s,
+  n,
+  i,
+  a
+);
+function m(e, r) {
+  e.chart && e.chart.destroy();
+  const t = d(r.series, c);
+  return e.chart = new o(e, {
     type: "line",
     data: {
-      labels: t.labels,
-      datasets: e
+      labels: r.labels,
+      datasets: t
     },
     options: {
       responsive: !0,
@@ -72,10 +80,10 @@ function h(r, t, o) {
         }
       }
     }
-  }, o), r.chart;
+  }), e.chart;
 }
 export {
-  l as BarChart,
-  h as LineChart,
-  s as theme
+  f as BarChart,
+  m as LineChart,
+  c as theme
 };
