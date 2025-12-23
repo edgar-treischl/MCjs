@@ -1,18 +1,32 @@
+// src/components/bar.js
 import { theme } from "../core/theme.js";
 import { mapSeriesToDatasets } from "../core/utils.js";
+import {
+  Chart,
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+} from "chart.js";
 
-// Updated createChart function to accept ChartConstructor
-function createChartWithGlobal(canvas, config, ChartConstructor) {
-  const ChartClass = ChartConstructor || window.Chart; // fallback to global Chart
-  if (!ChartClass) throw new Error("Chart.js not found. Make sure Chart.js is loaded.");
-  return new ChartClass(canvas, config);
-}
+// Register only what we need
+Chart.register(
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+);
 
-export function BarChart(canvas, data, ChartInstance) {
+export function BarChart(canvas, data) {
   if (canvas.chart) canvas.chart.destroy();
+
   const datasets = mapSeriesToDatasets(data.series, theme);
 
-  canvas.chart = createChartWithGlobal(canvas, {
+  canvas.chart = new Chart(canvas, {
     type: "bar",
     data: {
       labels: data.labels,
@@ -22,7 +36,7 @@ export function BarChart(canvas, data, ChartInstance) {
       responsive: true,
       scales: { y: { beginAtZero: true } }
     }
-  }, ChartInstance);
+  });
 
   return canvas.chart;
 }
