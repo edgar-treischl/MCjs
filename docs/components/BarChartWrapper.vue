@@ -1,39 +1,63 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const canvas = ref(null)
+// Canvas ref
+const barCanvas = ref(null)
 
 onMounted(async () => {
-  if (!canvas.value || typeof window === 'undefined') return
+  if (typeof window === 'undefined') return // prevent SSR
 
   try {
     // 1️⃣ Dynamically import Chart.js
     const ChartModule = await import('chart.js')
     const Chart = ChartModule.Chart || ChartModule.default
 
-    if (!Chart) throw new Error("Chart.js not found")
+    if (!Chart) throw new Error('Chart.js not found')
 
-    // 2️⃣ Dynamically import your library
-    const { BarChart } = await import('../../../src/index.js') // adjust path if needed
+    // 2️⃣ Register required components
+    Chart.register(
+      ChartModule.BarController,
+      ChartModule.BarElement,
+      ChartModule.CategoryScale,
+      ChartModule.LinearScale,
+      ChartModule.Tooltip,
+      ChartModule.Legend
+    )
 
-    const data = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+    // 3️⃣ Import MCjs BarChart
+    const { BarChart } = await import('../../src/index.js')
+
+    // 4️⃣ Example data
+    const barData = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
       series: [
-        { name: "2025", values: [65, 59, 80, 81, 56] },
-        { name: "2026", values: [28, 48, 40, 19, 86] }
+        { name: '2025', values: [65, 59, 80, 81, 56] },
+        { name: '2026', values: [28, 48, 40, 19, 86] }
       ]
     }
 
-    // 3️⃣ Pass the Chart constructor explicitly
-    BarChart(canvas.value, data, Chart)
+    // 5️⃣ Render chart
+    BarChart(barCanvas.value, barData, Chart)
+
   } catch (err) {
-    console.error("Failed to render BarChart:", err)
+    console.error('Failed to render bar chart:', err)
   }
 })
 </script>
 
 <template>
-  <div class="chart-container" style="max-width:600px; margin:20px 0;">
-    <canvas ref="canvas" width="600" height="400"></canvas>
+  <div class="chart-container">
+    <h2>Bar Chart</h2>
+    <canvas ref="barCanvas" width="600" height="400"></canvas>
   </div>
 </template>
+
+<style>
+.chart-container {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+</style>

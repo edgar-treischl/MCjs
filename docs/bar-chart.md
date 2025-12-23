@@ -1,9 +1,9 @@
 <script setup>
-import BarLineChartWrapper from '/components/BarLineChartWrapper.vue'
+import BarChartWrapper from '/components/BarChartWrapper.vue'
 </script>
 
 # MCjs Charts Example
 
 <ClientOnly>
-  <BarLineChartWrapper />
+  <BarChartWrapper />
 </ClientOnly>

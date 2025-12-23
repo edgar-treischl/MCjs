@@ -1,35 +1,64 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vitepress'
+import { ref, onMounted } from 'vue'
 
-const route = useRoute()
-const canvas = ref(null)
+// Canvas ref
+const lineCanvas = ref(null)
 
 onMounted(async () => {
-  if (typeof window !== "undefined") {
-    try {
-      // Import your chart library using alias
-      const { LineChart } = await import('@mcjs/src/index.js')
-      
-      const data = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-        series: [
-          { name: "Sales 2025", values: [65, 59, 80, 81, 56] },
-          { name: "Sales 2026", values: [28, 48, 40, 19, 86] }
-        ]
-      }
+  if (typeof window === 'undefined') return // prevent SSR
 
-      LineChart(canvas.value, data)
-    } catch (err) {
-      console.error("Failed to load LineChart:", err)
+  try {
+    // 1️⃣ Dynamically import Chart.js
+    const ChartModule = await import('chart.js')
+    const Chart = ChartModule.Chart || ChartModule.default
+
+    if (!Chart) throw new Error('Chart.js not found')
+
+    // 2️⃣ Register required components
+    Chart.register(
+      ChartModule.LineController,
+      ChartModule.LineElement,
+      ChartModule.PointElement,
+      ChartModule.CategoryScale,
+      ChartModule.LinearScale,
+      ChartModule.Tooltip,
+      ChartModule.Legend
+    )
+
+    // 3️⃣ Import MCjs LineChart
+    const { LineChart } = await import('../../src/index.js')
+
+    // 4️⃣ Example data
+    const lineData = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      series: [
+        { name: '2025', values: [45, 79, 60, 91, 36] },
+        { name: '2026', values: [38, 58, 70, 29, 66] }
+      ]
     }
+
+    // 5️⃣ Render chart
+    LineChart(lineCanvas.value, lineData, Chart)
+
+  } catch (err) {
+    console.error('Failed to render line chart:', err)
   }
 })
 </script>
 
 <template>
-  <div class="chart-container" style="max-width:600px; margin:20px 0;">
-    <!-- Remounts on SPA navigation -->
-    <canvas :key="route.path" ref="canvas" width="600" height="400" />
+  <div class="chart-container">
+    <h2>Line Chart</h2>
+    <canvas ref="lineCanvas" width="600" height="400"></canvas>
   </div>
 </template>
+
+<style>
+.chart-container {
+  max-width: 600px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+</style>
