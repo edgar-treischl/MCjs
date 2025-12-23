@@ -1,24 +1,26 @@
 # MCjs – Modular Chart Library
 
-MCjs is a small **JavaScript chart component library** built on [Chart.js](https://www.chartjs.org/), designed to be reusable across multiple projects (plain JS, React, Vue). It provides a consistent style, safe chart reload, and easy extensibility.
+MCjs is a small **JavaScript chart component library** built on [Chart.js](https://www.chartjs.org/). It is designed for **reusable, consistent, and maintainable charts** across multiple projects (plain JS, React, Vue). MCjs provides:
 
----
+- A consistent theme and style  
+- Safe chart reloads (destroys previous instances automatically)  
+- Easy extensibility and per-instance configuration  
 
 ## Features
 
-- Modular chart components (BarChart, LineChart, etc.)
-- Theme-based styling for consistent look
-- Safe reload of charts (destroys previous instances)
-- Works in plain JS, React, Vue
-- Data loaded from JSON
+- Modular chart components (e.g., `BarChart`, `LineChart`)  
+- Theme-based styling for a consistent look  
+- Automatic destruction of previous chart instances  
+- Works in plain JS, React, and Vue  
+- Data-driven: charts can be loaded from JSON or JS objects  
 
----
 
-## Using MCjs locally via Yarn link
 
-You can use MCjs as a **local reusable library** in multiple projects without publishing it. This is perfect for development and prototyping.
+## Installation & Local Development
 
-### Link the library globally
+You can use MCjs **locally** via `yarn link` for development or prototyping without publishing it.
+
+### 1. Link the library globally
 
 In your MCjs repo:
 
@@ -27,29 +29,54 @@ cd /path/to/MCjs
 yarn link
 ```
 
-This registers the library globally under the name in package.json (e.g., "MCjs"). Then link in your project.
+This registers the library globally under the name in package.json (e.g., "MCjs").
 
-```
+### 2. Link in your project
+
+```bash
 cd /path/to/my-app
 yarn link "MCjs"
 ```
 
 This creates a symlink in your node_modules pointing to the MCjs repo.
 
-Changes made in MCjs are immediately reflected in your app.
+Any changes made in MCjs are immediately reflected in your app.
 
+### Usage – Plain JavaScript
 
-Import and use charts
+After linking MCjs, you can import and use the chart components directly in your JavaScript code. For example, to render a bar chart:
 
 ```js
 import { BarChart, LineChart } from "MCjs";
 
-// Plain JS example
+// Get a reference to the canvas element
 const canvas = document.getElementById("myChart");
+
+// Example data
+const data = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+  series: [
+    { name: '2025', values: [65, 59, 80, 81, 56] },
+    { name: '2026', values: [28, 48, 40, 19, 86] }
+  ]
+};
+
+// Render a bar chart
 BarChart(canvas, data);
 
-// React example
+// Optional: Render a line chart
+const lineCanvas = document.getElementById("lineChart");
+LineChart(lineCanvas, data);
+```
+
+Any changes you make to the MCjs library will be immediately reflected in your project thanks to yarn link.
+
+
+### React Example
+
+```js
 import React, { useRef, useEffect } from "react";
+import { BarChart } from "MCjs";
 
 function App() {
   const barCanvas = useRef(null);
@@ -67,63 +94,54 @@ function App() {
 }
 ```
 
+### Optional Overrides
 
----
+MCjs components accept an optional optionsOverride object to tweak Chart.js defaults, for example changing the legend position:
 
-## GitHub
+```js
+BarChart(canvas, data, { plugins: { legend: { position: "bottom" } } })
+```
 
-For quick testing or small projects, you can install MCjs directly from a GitHub repository without publishing it to a registry.
+## Using Vite for Bundling
 
-### Install from GitHub
+MCjs is bundled via Vite for easy import into other projects:
+
+```bash
+yarn add -D vite
+yarn vite build
+```
+
+This generates a single JS file (ES + UMD) from your src/index.js.
+  - ES modules: import { BarChart } from "MCjs"
+  - UMD: window.MCjs.BarChart(...)
+
+## Documentation with VitePress
+
+MCjs includes live documentation and examples via VitePress.
+
+```bash
+yarn add -D vitepress@next
+````
+
+Run Docs via:
+
+```bash
+yarn docs:dev      # local dev server
+yarn docs:build    # build static site
+yarn docs:serve    # serve built docs
+```
+
+## Recommended Workflow
+
+Develop and test components locally in src/
+Use yarn link for testing in your apps
+Adjust theme and optionsOverride for per-project customization
+Use Vite to bundle the library for other projects
+Maintain docs in VitePress for examples and quick reference
+
+
+## Install from GitHub
 
 ```bash
 yarn add github:username/MCjs
 ```
-Replace username with your GitHub username or organization.
-Installs the library from the default branch.
-Works in plain JS, React, or Vue projects.
-
-## Import and use charts
-
-```js
-import { BarChart, LineChart } from "MCjs";
-
-const canvas = document.getElementById("myChart");
-BarChart(canvas, data);
-```
-
-⚠️ Notes
-Versioning is limited — updates are tied to Git commit hashes or tags.
-Suitable for prototypes or single-project use, not for multiple production apps.
-
-Next step: Using MCjs via GitHub Packages (private npm registry)
-
-We added Vite bundle your chart library into a single JS file for easy import.
-
-```bash
-yarn add -D vite  
-yarn vite build
-
-```
-
-## Vite Press
-
-
-We added VitePress for live documentation and examples.
-
-```bash
-yarn add -D vitepress@next
-```
-
-
-
-```bash
-yarn docs:dev
-yarn docs:build
-yarn vitepress build docs
-
-yarn vite build
-
-```
-
-
