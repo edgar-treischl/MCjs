@@ -1,51 +1,70 @@
-// ./components/LineChart.js
-import { createChart } from "../core/createChart.js";
+// LineChart.js
 import { theme } from "../core/theme.js";
 import { mapSeriesToDatasets } from "../core/utils.js";
+import {
+  Chart,
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+} from "chart.js";
+
+// Register only the components we need
+Chart.register(
+  LineController,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+);
 
 /**
  * Render a Line Chart on a given canvas with provided data
  * @param {HTMLCanvasElement} canvas - The canvas element to render the chart
  * @param {Object} data - Data object containing labels and series
- * @param {Object} [ChartInstance] - Optional Chart.js constructor
  */
-export function LineChart(canvas, data, ChartInstance) {
+export function LineChart(canvas, data) {
   // Destroy existing chart instance if present
   if (canvas.chart) canvas.chart.destroy();
 
   // Convert series data into Chart.js datasets
   const datasets = mapSeriesToDatasets(data.series, theme);
 
-  // Create the chart using Chart.js, fallback to global Chart
-  canvas.chart = createChart(canvas, {
+  // Create a new Chart.js instance
+  canvas.chart = new Chart(canvas, {
     type: "line",
     data: {
       labels: data.labels,
-      datasets,
+      datasets
     },
     options: {
       responsive: true,
       plugins: {
         legend: {
-          position: "top",
+          position: "top"
         },
         tooltip: {
           mode: "index",
-          intersect: false,
-        },
+          intersect: false
+        }
       },
       interaction: {
         mode: "nearest",
         axis: "x",
-        intersect: false,
+        intersect: false
       },
       scales: {
         y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  }, ChartInstance);
+          beginAtZero: true
+        }
+      }
+    }
+  });
 
   return canvas.chart;
 }
