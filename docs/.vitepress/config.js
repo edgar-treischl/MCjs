@@ -4,7 +4,8 @@ import path from 'path'
 export default defineConfig({
   title: 'MCjs',
   description: 'Modular Chart Library',
-  base: '/MCjs/',  // Required for GitHub Pages
+  base: '/MCjs/',
+
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
@@ -17,12 +18,12 @@ export default defineConfig({
       { text: 'LineChart', link: '/line-chart' }
     ]
   },
+
   vite: {
     resolve: {
       alias: {
-        // Alias for your chart library root
-        '@mcjs': path.resolve(__dirname, '../../../') 
-        // Adjust ../../../ depending on where your .vitepress folder is
+        // Public API only
+        mcjs: path.resolve(__dirname, '../../src/index.js')
       }
     }
   }

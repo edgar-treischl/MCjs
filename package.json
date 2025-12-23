@@ -15,9 +15,9 @@
   },
   "scripts": {
     "build": "vite build",
-    "docs:dev": "vitepress dev src/docs",
-    "docs:build": "vitepress build src/docs",
-    "docs:serve": "vitepress serve src/docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
     "prepare": "vite build"
   }
 }

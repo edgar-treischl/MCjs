@@ -29,7 +29,7 @@ onMounted(async () => {
     )
 
     // 3️⃣ Dynamically import your MCjs library
-    const { BarChart, LineChart } = await import('../../../src/index.js') // adjust path if needed
+    const { BarChart, LineChart } = await import('../../src/index.js') // adjust path if needed
 
     // 4️⃣ Example data
     const barData = {
