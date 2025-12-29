@@ -1,0 +1,74 @@
+---
+title: "MCjs Test"
+format:
+  html:
+    include-in-header:
+      - text: |
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          <script src="https://raw.githack.com/edgar-treischl/MCjs/main/dist/mcjs.umd.js"></script>
+---
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.
+
+<canvas id="c"></canvas>
+
+<script>
+  console.log("MCjs =", window.MCjs);
+
+  MCjs.BarChart(
+    document.getElementById("c"),
+    {
+      labels: ["Edgar", "Bruno"],
+      series: [{ name: "Test", values: [1, 2] }]
+    }
+  );
+</script>
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.
+
+
+# Vega for X
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(tidyr)
+library(vegawidget)
+
+# Create data
+data <- data.frame(
+  month = c("Jan","Feb","Mar","Apr","May"),
+  "2025" = c(65,59,80,81,56),
+  "2026" = c(28,48,40,19,86),
+  check.names = FALSE  # important: keep column names as-is
+)
+
+# Pivot longer
+data_long <- data %>%
+  pivot_longer(cols = c("2025","2026"), names_to = "year", values_to = "value")
+
+# Vega-Lite spec
+spec <- list(
+  `$schema` = "https://vega.github.io/schema/vega-lite/v5.json",
+  width = 600,      # adjust width
+  height = 400,     # adjust height
+  data = list(values = data_long),
+  mark = "bar",
+  encoding = list(
+    x = list(field = "month", type = "ordinal"),
+    y = list(field = "value", type = "quantitative"),
+    color = list(field = "year", type = "nominal")
+  )
+)
+
+vegawidget(spec)
+
+
+```
+
+
+

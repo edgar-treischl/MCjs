@@ -1,5 +1,5 @@
-import { Chart as l, BarController as g, BarElement as b, CategoryScale as i, LinearScale as a, Tooltip as p, Legend as c, LineController as h, LineElement as f, PointElement as C } from "chart.js";
-const u = {
+import { Chart as l, BarController as b, BarElement as h, CategoryScale as a, LinearScale as c, Tooltip as d, Legend as g, LineController as C, LineElement as y, PointElement as m } from "chart.js";
+const p = {
   colors: [
     "#36A2EB",
     "#FF6384",
@@ -8,56 +8,103 @@ const u = {
   ],
   borderWidth: 1
 };
-function d(e, t) {
-  return e.map((r, o) => ({
-    label: r.name,
-    data: r.values,
-    backgroundColor: t.colors[o % t.colors.length],
-    borderColor: t.colors[o % t.colors.length],
+function f(e, t) {
+  return e.map((o, r) => ({
+    label: o.name,
+    data: o.values,
+    backgroundColor: t.colors[r % t.colors.length],
+    borderColor: t.colors[r % t.colors.length],
     borderWidth: t.borderWidth
   }));
 }
 l.register(
-  g,
   b,
-  i,
+  h,
   a,
-  p,
-  c
+  c,
+  d,
+  g
 );
-function y(e, t, r = {}) {
+function z(e, t, o = {}, r = "", n = "") {
   e.chart && e.chart.destroy();
-  const o = d(t.series, u), n = {
+  const u = f(t.series, p), s = {
     responsive: !0,
-    scales: { y: { beginAtZero: !0 } },
+    layout: {
+      padding: 10
+    },
     plugins: {
-      legend: { position: "top" },
-      tooltip: {}
+      legend: {
+        position: "top",
+        labels: {
+          color: "#333",
+          font: { size: 12 }
+        }
+      },
+      tooltip: {
+        backgroundColor: "rgba(0,0,0,0.7)",
+        titleColor: "#fff",
+        bodyColor: "#fff"
+      }
+    },
+    scales: {
+      x: {
+        grid: {
+          display: !1
+          // remove vertical grid lines
+        },
+        ticks: {
+          color: "#333",
+          font: { size: 12 }
+        },
+        title: {
+          display: !!r,
+          text: r,
+          color: "#333",
+          font: { size: 14, weight: "bold" }
+        }
+      },
+      y: {
+        beginAtZero: !0,
+        grid: {
+          color: "#e0e0e0",
+          borderDash: [2, 2]
+        },
+        ticks: {
+          color: "#333",
+          font: { size: 12 }
+        },
+        title: {
+          display: !!n,
+          text: n,
+          color: "#333",
+          font: { size: 14, weight: "bold" }
+        }
+      }
     }
-  }, s = { ...n, ...r };
-  return r.plugins && (s.plugins = { ...n.plugins, ...r.plugins }), e.chart = new l(e, {
+  }, i = { ...s, ...o };
+  return o.plugins && (i.plugins = { ...s.plugins, ...o.plugins }), o.scales && (i.scales = { ...s.scales, ...o.scales }), e.chart = new l(e, {
     type: "bar",
-    data: { labels: t.labels, datasets: o },
-    options: s
+    data: { labels: t.labels, datasets: u },
+    options: i
   }), e.chart;
 }
 l.register(
-  h,
-  f,
   C,
-  i,
+  y,
+  m,
   a,
-  p,
-  c
+  c,
+  d,
+  g
 );
 function B(e, t) {
   e.chart && e.chart.destroy();
-  const r = d(t.series, u);
+  const o = f(t.series, p);
   return e.chart = new l(e, {
     type: "line",
     data: {
       labels: t.labels,
-      datasets: r
+      datasets: o
     },
     options: {
       responsive: !0,
@@ -84,7 +131,7 @@ function B(e, t) {
   }), e.chart;
 }
 export {
-  y as BarChart,
+  z as BarChart,
   B as LineChart,
-  u as theme
+  p as theme
 };
